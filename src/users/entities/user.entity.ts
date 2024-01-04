@@ -6,7 +6,7 @@ export class User {
   id: number;
 
   @Column({ unique: true })
-  emai: string;
+  email: string;
 
   @Column()
   password: string;

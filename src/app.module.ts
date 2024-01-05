@@ -9,8 +9,6 @@ import { IamModule } from './iam/iam.module';
 
 @Module({
   imports: [
-    CoffeesModule,
-    UsersModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
@@ -25,6 +23,8 @@ import { IamModule } from './iam/iam.module';
       }),
     }),
     IamModule,
+    CoffeesModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

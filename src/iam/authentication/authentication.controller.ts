@@ -22,7 +22,7 @@ export class AuthenticationController {
     return this.authService.signUp(signUpDto);
   }
 
-  // @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.OK)
   @Post('sign-in')
   async signIn(
     // @Res({ passthrough: true }) response: Response,

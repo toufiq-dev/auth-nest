@@ -22,18 +22,16 @@ export class AuthenticationGuard implements CanActivate {
   };
 
   constructor(
+    // Reflector gives us access to underlying metadata
     private readonly reflector: Reflector,
     private readonly accessTokenGuard: AccessTokenGuard,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    console.log('AuthenticationGuard canActivate called for sign-in route');
     const authTypes = this.reflector.getAllAndOverride<AuthType[]>(
       AUTH_TYPE_KEY,
       [context.getHandler(), context.getClass()], // *
     ) ?? [AuthenticationGuard.defaultAuthType];
-
-    console.log('Auth Types:', authTypes);
 
     const guards = authTypes.map((type) => this.authTypeGuardMap[type]).flat();
     let error = new UnauthorizedException();
@@ -41,9 +39,13 @@ export class AuthenticationGuard implements CanActivate {
     for (const instance of guards) {
       const canActivate = await Promise.resolve(
         instance.canActivate(context),
-      ).catch((err) => (error = err));
+      ).catch((err) => {
+        error = err;
+      });
 
-      if (canActivate) return true;
+      if (canActivate) {
+        return true;
+      }
     }
 
     throw error;

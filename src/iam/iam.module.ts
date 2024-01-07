@@ -15,6 +15,8 @@ import { AuthenticationGuard } from './authentication/guards/authentication.guar
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
+    // asProvider method converts a factory to match the expected async
+    // module configuration objects with imports, useFactory() etc.
     JwtModule.registerAsync(jwtConfig.asProvider()),
     ConfigModule.forFeature(jwtConfig),
   ],

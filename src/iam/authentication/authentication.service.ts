@@ -42,14 +42,16 @@ export class AuthenticationService {
   }
 
   async signIn(signInDto: SignInDto) {
-    const { email, password } = signInDto;
     const user = await this.userRepository.findOneBy({
-      email,
+      email: signInDto.email,
     });
 
     if (!user) throw new UnauthorizedException('User does not match');
 
-    const isEqual = await this.hashingService.compare(password, user.password);
+    const isEqual = await this.hashingService.compare(
+      signInDto.password,
+      user.password,
+    );
 
     if (!isEqual) throw new UnauthorizedException('Password does not match');
 

@@ -7,6 +7,5 @@ export const AUTH_TYPE_KEY = 'authType';
 //   SetMetadata(AUTH_TYPE_KEY, authTypes);
 // };
 
-export const Auth = (...authTypes: AuthType[]) => {
-  return SetMetadata(AUTH_TYPE_KEY, authTypes);
-};
+export const Auth = (...authTypes: AuthType[]) =>
+  SetMetadata(AUTH_TYPE_KEY, authTypes);

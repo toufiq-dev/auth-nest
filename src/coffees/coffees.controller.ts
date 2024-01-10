@@ -23,7 +23,7 @@ export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
 
   @Policies(new FrameworkContributorPolicy())
-  @Roles(Role.Admin)
+  // @Roles(Role.Admin)
   @Post()
   create(@Body() createCoffeeDto: CreateCoffeeDto) {
     return this.coffeesService.create(createCoffeeDto);
